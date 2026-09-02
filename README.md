@@ -1,4 +1,4 @@
-# 🌌 Heinn Htet Zan | 5D Data & AI Portfolio
+# 🌌 Heinn Htet Zan's Portfolio
 
 An immersive, intelligent digital portfolio highlighting the intersection of Data Science, AI, and Software Engineering. Built with modern React, Three.js, and Framer Motion.
 
