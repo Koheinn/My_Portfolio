@@ -1,26 +1,21 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar({ scrollY }: { scrollY: number }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const calculateProgress = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        setProgress((window.scrollY / scrollHeight) * 100);
-      }
-    };
-    window.addEventListener('scroll', calculateProgress);
-    return () => window.removeEventListener('scroll', calculateProgress);
-  }, []);
+  
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
-    { name: 'Data & AI', href: '#data-ai' },
+    { name: 'Cloud & Data', href: '#data-ai' },
     { name: 'Projects', href: '#projects' },
     { name: 'Journey', href: '#journey' },
     { name: 'Contact', href: '#contact' },
@@ -31,12 +26,10 @@ export default function Navbar({ scrollY }: { scrollY: number }) {
   return (
     <>
       {/* Progress bar */}
-      <div className="fixed top-0 left-0 w-full h-1 z-50 bg-surface">
-        <div 
-          className="h-full bg-gradient-to-r from-data via-brand to-ai transition-all duration-150 ease-out"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 z-50 bg-gradient-to-r from-data via-brand to-ai origin-left"
+        style={{ scaleX }}
+      />
 
       <nav className={`fixed top-1 left-0 w-full z-40 transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'}`}>
         <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
