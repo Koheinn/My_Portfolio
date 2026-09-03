@@ -24,7 +24,7 @@ ENV NODE_ENV=production
 
 # Install production dependencies
 COPY --from=builder /app/package*.json ./
-RUN npm install --omit=dev
+RUN npm install
 
 # Copy built assets and server from builder
 COPY --from=builder /app/dist ./dist
