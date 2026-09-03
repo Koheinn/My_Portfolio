@@ -83,7 +83,7 @@ export default function Hero({ scrollY }: { scrollY: number }) {
           >
             <span className="text-sm font-mono tracking-wider text-accent">Heinn Htet Zan</span>
           </motion.div>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-2xl">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-2xl">
             Architecting <br className="hidden md:block"/>
             <span className="text-gradient-data">cloud-native</span> <br className="hidden md:block"/>
             <span className="text-gradient-ai">data systems.</span>

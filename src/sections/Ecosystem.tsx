@@ -49,9 +49,10 @@ export default function Ecosystem() {
 
         <motion.div 
           style={{ scale, rotateX, opacity }}
-          className="relative w-full max-w-4xl mx-auto h-[600px] glass-panel rounded-3xl p-4 md:p-8 preserve-3d shadow-[0_30px_60px_rgba(0,0,0,0.4)]"
+          className="relative w-full max-w-4xl mx-auto glass-panel rounded-3xl p-4 md:p-8 preserve-3d shadow-[0_30px_60px_rgba(0,0,0,0.4)] overflow-x-auto custom-scrollbar"
         >
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
+          <div className="relative min-w-[700px] h-[500px] md:h-[600px]">
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
             {edges.map((edge, idx) => {
               const sourceNode = nodes.find(n => n.id === edge.source);
               const targetNode = nodes.find(n => n.id === edge.target);
@@ -99,6 +100,7 @@ export default function Ecosystem() {
               </motion.div>
             </motion.div>
           ))}
+          </div>
         </motion.div>
       </div>
     </section>
