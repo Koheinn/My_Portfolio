@@ -18,8 +18,9 @@ RUN npm run build
 
 # Stage 2: Serve the application
 FROM node:20-alpine
-
 WORKDIR /app
+
+ENV NODE_ENV=production
 
 # Install production dependencies
 COPY --from=builder /app/package*.json ./
