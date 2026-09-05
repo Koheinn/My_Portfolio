@@ -108,11 +108,11 @@ export default function Journey() {
             {timeline.map((item, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? 50 : -50, rotateY: idx % 2 === 0 ? -15 : 15 }}
-                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                initial={{ opacity: 0, x: idx % 2 === 0 ? 50 : -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={`relative flex flex-col md:flex-row gap-8 md:gap-0 preserve-3d ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className={`relative flex flex-col md:flex-row gap-8 md:gap-0 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
               >
                 {/* Node */}
                 <motion.div 
@@ -126,8 +126,8 @@ export default function Journey() {
                 {/* Content */}
                 <div className={`ml-16 md:ml-0 md:w-1/2 ${idx % 2 === 0 ? 'md:pl-16' : 'md:pr-16 text-left md:text-right'}`}>
                   <motion.div 
-                    whileHover={{ scale: 1.05, z: 20 }}
-                    className="glass-panel p-6 rounded-2xl border-white/5 hover:border-brand/30 transition-all duration-300 shadow-lg hover:shadow-[0_15px_30px_rgba(0,0,0,0.3)] preserve-3d"
+                    whileHover={{ scale: 1.05 }}
+                    className="glass-panel p-6 rounded-2xl border-white/5 hover:border-brand/30 transition-all duration-300 shadow-lg hover:shadow-[0_15px_30px_rgba(0,0,0,0.3)]"
                   >
                     <div className={`flex items-center gap-3 mb-2 ${idx % 2 === 0 ? '' : 'md:justify-end'}`}>
                       {idx % 2 !== 0 && <span className="text-sm font-mono text-accent-dim">{item.year}</span>}

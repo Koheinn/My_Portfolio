@@ -108,23 +108,20 @@ export default function Projects() {
   }, [searchQuery, activeFilter]);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const headerY = useTransform(scrollYProgress, [0, 1], ["50px", "-50px"]);
-
+  
   return (
     <section id="projects" ref={containerRef} className="py-24 relative w-full perspective-1000">
       <div className="container mx-auto px-6 lg:px-12">
         <motion.div 
-          style={{ y: headerY }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
           className="mb-16 md:text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-xl">Intelligent Work</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-xl">Featured Deliverables</h2>
           <p className="text-lg text-accent-dim max-w-2xl mx-auto text-shadow">
-            A selection of projects exploring AI, data modeling, and robust software architecture.
+            Demonstrated engineering capabilities through real-world AI implementations, data modeling, and robust software architecture.
           </p>
         </motion.div>
 

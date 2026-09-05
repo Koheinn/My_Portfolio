@@ -2,23 +2,56 @@ import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const nodes = [
-  { id: 'data', label: 'Raw Data', x: 50, y: 10, type: 'core' },
-  { id: 'ingestion', label: 'AWS Data Pipeline', x: 50, y: 25, type: 'cloud' },
-  { id: 'storage', label: 'Data Lake / S3', x: 25, y: 45, type: 'storage' },
-  { id: 'processing', label: 'Apache Spark / EMR', x: 75, y: 45, type: 'processing' },
-  { id: 'warehouse', label: 'Data Warehouse', x: 50, y: 60, type: 'core' },
-  { id: 'ml', label: 'Machine Learning Models', x: 50, y: 75, type: 'ml' },
-  { id: 'apps', label: 'Intelligent Applications', x: 50, y: 90, type: 'output' },
+  // Sources (Top layer)
+  { id: 'api', label: 'REST/GraphQL APIs', x: 15, y: 10, type: 'source' },
+  { id: 'stream_src', label: 'IoT & Web Streams', x: 50, y: 8, type: 'source' },
+  { id: 'db_src', label: 'Relational & NoSQL DBs', x: 85, y: 10, type: 'source' },
+
+  // Ingestion Layer
+  { id: 'kafka', label: 'Apache Kafka / Kinesis (Real-time)', x: 30, y: 25, type: 'streaming' },
+  { id: 'airflow', label: 'Apache Airflow (Batch ETL)', x: 70, y: 25, type: 'batch' },
+
+  // Storage & Processing
+  { id: 'datalake', label: 'S3 Data Lake', x: 15, y: 45, type: 'storage' },
+  { id: 'spark', label: 'Apache Spark / EMR', x: 50, y: 45, type: 'processing' },
+  { id: 'quality', label: 'Data Governance & DQ', x: 85, y: 45, type: 'processing' },
+
+  // Serving Layer
+  { id: 'warehouse', label: 'Cloud Data Warehouse (Redshift)', x: 30, y: 65, type: 'warehouse' },
+  { id: 'feature_store', label: 'ML Feature Store', x: 70, y: 65, type: 'ml' },
+
+  // AI & Applications
+  { id: 'training', label: 'Model Training & MLOps', x: 15, y: 85, type: 'ml' },
+  { id: 'llm', label: 'LLM & RAG Agents', x: 50, y: 88, type: 'ml' },
+  { id: 'apps', label: 'Intelligent Applications', x: 85, y: 85, type: 'output' },
 ];
 
 const edges = [
-  { source: 'data', target: 'ingestion' },
-  { source: 'ingestion', target: 'storage' },
-  { source: 'ingestion', target: 'processing' },
-  { source: 'storage', target: 'processing' },
-  { source: 'processing', target: 'warehouse' },
-  { source: 'warehouse', target: 'ml' },
-  { source: 'ml', target: 'apps' },
+  { source: 'api', target: 'airflow' },
+  { source: 'stream_src', target: 'kafka' },
+  { source: 'db_src', target: 'airflow' },
+  { source: 'db_src', target: 'kafka' },
+  
+  { source: 'kafka', target: 'datalake' },
+  { source: 'kafka', target: 'spark' },
+  
+  { source: 'airflow', target: 'datalake' },
+  { source: 'airflow', target: 'spark' },
+  
+  { source: 'datalake', target: 'spark' },
+  { source: 'spark', target: 'quality' },
+  
+  { source: 'spark', target: 'warehouse' },
+  { source: 'spark', target: 'feature_store' },
+  { source: 'quality', target: 'warehouse' },
+  
+  { source: 'warehouse', target: 'training' },
+  { source: 'warehouse', target: 'llm' },
+  { source: 'feature_store', target: 'training' },
+  { source: 'feature_store', target: 'llm' },
+  
+  { source: 'training', target: 'apps' },
+  { source: 'llm', target: 'apps' },
 ];
 
 export default function Ecosystem() {
@@ -38,20 +71,26 @@ export default function Ecosystem() {
     <section ref={containerRef} className="py-24 relative w-full bg-surface/30 overflow-hidden perspective-1000">
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <motion.div 
-          style={{ opacity, y: useTransform(scrollYProgress, [0, 1], ["50px", "-50px"]) }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
           className="mb-16 md:text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-xl">Cloud-Native Data Flow</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-xl">Architecting for Scale</h2>
           <p className="text-lg text-accent-dim max-w-2xl mx-auto text-shadow">
-            Hover to explore the architecture of a scalable, cloud-based data engineering pipeline.
+            I design and implement resilient data architectures that seamlessly transform raw inputs into intelligent, business-critical applications. Hover to explore the flow.
           </p>
         </motion.div>
 
         <motion.div 
-          style={{ scale, rotateX, opacity }}
-          className="relative w-full max-w-4xl mx-auto glass-panel rounded-3xl p-4 md:p-8 preserve-3d shadow-[0_30px_60px_rgba(0,0,0,0.4)] overflow-x-auto custom-scrollbar"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="relative w-full max-w-5xl mx-auto glass-panel rounded-3xl p-4 md:p-8 shadow-[0_30px_60px_rgba(0,0,0,0.4)] overflow-x-auto custom-scrollbar"
         >
-          <div className="relative min-w-[700px] h-[500px] md:h-[600px]">
+          <div className="relative min-w-[900px] h-[550px] md:h-[650px]">
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
             {edges.map((edge, idx) => {
               const sourceNode = nodes.find(n => n.id === edge.source);

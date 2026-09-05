@@ -7,30 +7,23 @@ import { ArrowDown } from 'lucide-react';
 
 function DataParticles() {
   const ref = useRef<THREE.Points>(null!);
-  const count = 1200; // Reduced for performance
+  const count = 800; // Significantly reduced for lag-free performance
   
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 15;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 15;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 15;
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 20;
     }
     return pos;
   }, [count]);
 
   useFrame((state) => {
     if (ref.current) {
-      // Base rotation
-      ref.current.rotation.y = state.clock.elapsedTime * 0.05;
-      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-      
-      // Interactive rotation based on pointer
-      const targetX = state.pointer.x * 0.2;
-      const targetY = state.pointer.y * 0.2;
-      
-      ref.current.rotation.y += (targetX - ref.current.rotation.y) * 0.05;
-      ref.current.rotation.x += (-targetY - ref.current.rotation.x) * 0.05;
+      // Extremely lightweight continuous rotation
+      ref.current.rotation.y = state.clock.elapsedTime * 0.03;
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.03;
     }
   });
 
@@ -38,11 +31,11 @@ function DataParticles() {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={true}>
       <PointMaterial
         transparent
-        color="#8B5CF6"
-        size={0.04}
+        color="#3B82F6"
+        size={0.035}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.6}
+        opacity={0.4}
       />
     </Points>
   );
@@ -83,13 +76,13 @@ export default function Hero({ scrollY }: { scrollY: number }) {
           >
             <span className="text-sm font-mono tracking-wider text-accent">Heinn Htet Zan</span>
           </motion.div>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-2xl">
-            Architecting <br className="hidden md:block"/>
-            <span className="text-gradient-data">cloud-native</span> <br className="hidden md:block"/>
-            <span className="text-gradient-ai">data systems.</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-2xl">
+            Delivering <br className="hidden lg:block"/>
+            <span className="text-gradient-data">scalable data</span> <br className="hidden lg:block"/>
+            <span className="text-gradient-ai">solutions.</span>
           </h1>
           <p className="text-lg md:text-xl text-accent-dim mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-shadow">
-            Cloud-Native Data Engineer & ML Enthusiast. Building scalable data pipelines, intelligent models, and robust cloud infrastructure.
+            Cloud-Native Data Engineer passionate about transforming complex data into actionable intelligence. Bridging the gap between robust software architecture and innovative machine learning to deliver measurable business value.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
@@ -129,13 +122,13 @@ export default function Hero({ scrollY }: { scrollY: number }) {
             />
             {/* Image container */}
             <motion.div 
-              whileHover={{ scale: 1.05, rotateY: -10, rotateX: 10 }}
-              className="absolute inset-4 bg-surface/50 rounded-full border border-white/20 z-10 overflow-hidden shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out preserve-3d"
+              whileHover={{ scale: 1.05 }}
+              className="absolute inset-4 bg-surface/50 rounded-full border border-white/20 z-10 overflow-hidden shadow-2xl backdrop-blur-sm transition-transform duration-500 ease-out"
             >
               <img 
                 src="https://github.com/Koheinn.png" 
                 alt="Heinn Htet Zan" 
-                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-700"
+                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700"
               />
             </motion.div>
           </div>

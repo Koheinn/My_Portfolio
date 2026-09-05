@@ -67,11 +67,11 @@ export default function Contact() {
         >
           {/* Left Column: Info */}
           <div className="lg:w-1/2">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-              Let's build something <span className="text-gradient-ai">intelligent.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+              Let's drive <span className="text-gradient-ai">impact.</span>
             </h2>
             <p className="text-lg text-accent-dim mb-12 max-w-lg">
-              Whether you need robust software engineering, cloud-native data pipelines, or AI integration, I'm open to exploring new opportunities and collaborations.
+              Whether you're looking for a Cloud-Native Data Engineer, robust software engineering expertise, or seamless AI integration, I am ready to deliver value to your team. Let's connect to discuss how we can collaborate.
             </p>
 
             <div className="space-y-6">

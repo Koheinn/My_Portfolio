@@ -16,6 +16,7 @@ An immersive, intelligent digital portfolio highlighting the intersection of Dat
 * **Backend:** Express, Node.js, Resend API
 * **Styling:** Tailwind CSS (Custom dark-first theme)
 * **3D & Animation:** Three.js, React Three Fiber, Framer Motion
+* **Data Visualization:** Recharts
 * **Icons:** Lucide React
 
 ## 💻 Local Development
